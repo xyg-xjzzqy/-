@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资源库 · 个人收藏</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #F4F0E6;
+    --ink: #141414;
+    --card: #FFFDF6;
+    --muted: #6B675C;
+    --line: #E3DDCB;
+    --accent: #3D6BFF;
+    --accent-tint: #E8EEFF;
+    --font-display: 'ZCOOL QingKe HuangYou', 'Noto Sans SC', sans-serif;
+    --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --shadow: 6px 6px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --r: 16px;
+  }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    background-image: radial-gradient(rgba(20,20,20,.09) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  /* ===== Topbar ===== */
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--card); border-bottom: 2px solid var(--ink); }
+  .topbar-inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 22px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: 23px; letter-spacing: .04em; }
+  .logo-tile {
+    width: 38px; height: 38px; flex: none; background: var(--accent); border: 2px solid var(--ink);
+    border-radius: 11px; display: grid; place-items: center; color: #fff; box-shadow: var(--shadow-sm);
+  }
+  .logo-sub { font-family: var(--font-body); font-size: 10.5px; font-weight: 700; color: var(--muted); letter-spacing: .28em; display: block; line-height: 1; margin-top: 2px; }
+
+  /* ===== Ticker ===== */
+  .ticker { background: var(--ink); color: var(--paper); overflow: hidden; }
+  .ticker-track { display: inline-flex; white-space: nowrap; animation: tick 28s linear infinite; will-change: transform; }
+  .ticker-track span { padding: 7px 0; font-size: 12px; font-weight: 500; letter-spacing: .16em; }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* ===== Container / Hero ===== */
+  .container { max-width: 1140px; margin: 0 auto; padding: 34px 22px 80px; }
+  .hero { margin-bottom: 30px; }
+  .hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 5vw, 52px); line-height: 1.18; letter-spacing: .02em; }
+  .hero h1 em {
+    font-style: normal; color: var(--accent); padding: 0 .08em;
+    background: linear-gradient(transparent 60%, #FFD84D 60% 94%, transparent 94%);
+  }
+  .hero p { color: var(--muted); margin-top: 6px; font-size: 14.5px; }
+  .hero-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; margin-top: 22px; }
+
+  /* ===== Search & Chips ===== */
+  .search {
+    display: flex; align-items: center; gap: 8px; flex: 1; max-width: 380px; min-width: min(300px, 100%);
+    background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 8px 12px;
+    box-shadow: var(--shadow-sm); transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .search:focus-within { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .search svg { flex: none; color: var(--muted); }
+  .search input { border: none; outline: none; background: none; flex: 1; min-width: 0; font-size: 14px; color: var(--ink); }
+  .search input::placeholder { color: #B4AE9D; }
+  .search kbd {
+    font-family: var(--font-body); font-size: 11px; color: var(--muted); background: #FAF7EE;
+    border: 1.5px solid var(--line); border-bottom-width: 3px; border-radius: 6px; padding: 1px 7px;
+  }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--ink); background: #fff;
+    border-radius: 999px; padding: 5px 14px; font-size: 12.5px; font-weight: 700; box-shadow: var(--shadow-sm);
+  }
+  .chip b { font-family: var(--font-display); font-weight: 400; font-size: 16px; color: var(--accent); line-height: 1; }
+
+  /* ===== Grids ===== */
+  .featured-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin-bottom: 26px; }
+  .cards-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+  .featured-grid:empty, .cards-grid:empty { display: none; }
+  .card--wide { grid-column: 1 / -1; }
+  .card.is-hide { display: none; }
+
+  /* ===== Card ===== */
+  .card {
+    position: relative; background: var(--card); border: 2px solid var(--ink); border-radius: var(--r);
+    box-shadow: var(--shadow); padding: 22px;
+    animation: rise .55s cubic-bezier(.2, .7, .3, 1) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 13px; border-bottom: 2px dashed rgba(20,20,20,.18); }
+  .emoji-tile {
+    width: 40px; height: 40px; flex: none; display: grid; place-items: center; font-size: 21px;
+    background: var(--tint, #F1EDE2); border: 2px solid var(--ink); border-radius: 12px; box-shadow: 2px 2px 0 var(--ink);
+  }
+  .card-title { font-family: var(--font-display); font-weight: 400; font-size: 21px; letter-spacing: .03em; flex: 1; min-width: 0; }
+  .card-count { flex: none; font-size: 11.5px; font-weight: 700; color: var(--muted); background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 9px; }
+
+  /* ===== Resource Item ===== */
+  .res-list { display: flex; flex-direction: column; gap: 10px; }
+  .card--wide .res-list.res-cols { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .res {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: #fff; border: 2px solid var(--ink); border-radius: 12px; padding: 8px 8px 8px 13px;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .res:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-sm); background: #FFFDF4; }
+  .res-name { font-size: 14px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; user-select: none;
+    border: 2px solid var(--ink); border-radius: 10px; padding: 5px 15px; min-height: 32px; white-space: nowrap;
+    font-size: 13px; font-weight: 700; box-shadow: var(--shadow-sm);
+    transition: transform .13s ease, box-shadow .13s ease, background .13s ease;
+  }
+  .btn--solid { background: var(--accent, var(--accent-tint)); color: #fff; }
+  .btn--solid.dark { color: var(--ink); }
+  .btn--ghost { background: #fff; color: var(--ink); }
+  .btn--ghost:hover { background: var(--tint, #F1EDE2); }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+  .btn--pending {
+    background: repeating-linear-gradient(45deg, #F1EDE2 0 8px, #FAF7EE 8px 16px);
+    color: #B4AE9D; border-style: dashed; box-shadow: none; cursor: default;
+  }
+
+  /* ===== Featured Card ===== */
+  .card--featured {
+    --accent: #FF7A2F; --tint: #FFE9DA;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; min-height: 236px; padding: 30px 26px 26px;
+    background: linear-gradient(150deg, #FFE8D6 0%, #FFF6E3 55%, #FFFDF6 100%);
+  }
+  .ribbon {
+    position: absolute; top: -14px; right: 18px; transform: rotate(4deg);
+    background: #FFD84D; border: 2px solid var(--ink); border-radius: 999px; padding: 3px 12px;
+    font-family: var(--font-display); font-size: 12.5px; letter-spacing: .08em; box-shadow: var(--shadow-sm);
+  }
+  .f-emoji { font-size: 46px; line-height: 1; margin-bottom: 12px; filter: drop-shadow(3px 3px 0 rgba(20,20,20,.16)); }
+  .f-title { font-family: var(--font-display); font-size: 25px; letter-spacing: .03em; }
+  .f-sub { font-size: 13px; color: #9A7B57; margin-top: 2px; }
+  .feat-btn { margin-top: 16px; padding: 7px 24px; font-size: 14px; font-family: var(--font-display); letter-spacing: .06em; }
+
+  /* ===== Empty / No Result ===== */
+  .empty {
+    border: 2px dashed var(--ink); border-radius: var(--r); background: #fff;
+    padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px;
+  }
+  .empty .big { font-size: 42px; display: block; margin-bottom: 10px; }
+  #noResult { margin-top: 26px; }
+
+  /* ===== Footer ===== */
+  .footer { border-top: 2px solid var(--ink); background: var(--card); text-align: center; padding: 26px 20px 34px; font-size: 13px; color: var(--muted); }
+  kbd {
+    font-family: var(--font-body); font-size: 11.5px; color: var(--muted); background: #FAF7EE;
+    border: 1.5px solid var(--line); border-bottom-width: 3px; border-radius: 6px; padding: 0 6px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .card--wide .res-list.res-cols { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .topbar-inner { height: 58px; padding: 0 16px; }
+    .logo { font-size: 19px; }
+    .logo-tile { width: 34px; height: 34px; }
+    .container { padding: 24px 16px 60px; }
+    .card { padding: 18px; border-radius: 14px; }
+    .hero-row { flex-direction: column; align-items: stretch; }
+    .search { max-width: none; }
+    .search kbd { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     资源链接配置区【开始】 —— 用记事本打开本文件，只改这一块
+     ──────────────────────────────────────────────────────
+     格式：
+       ##  卡片标题 @表情   → 普通卡片
+       ##! 卡片标题 @表情   → 大号「推荐」卡片（放最上面一排）
+       ##* 卡片标题 @表情   → 宽卡片（占满一整行，适合资源多）
+       名称 | 按钮文字 | 链接   （按钮文字可省略，默认「打开」）
+       名称 | 链接
+       名称                  （链接留空 → 网页显示「待填写」）
+     # 开头的行是注释；空行随意；条目里不要写 HTML 标签
+     改完 Ctrl+S 保存（编码 UTF-8），刷新网页生效，
+     托管在飞书就把改好的文件重新上传一次。
+══════════════════════════════════════════════════════ -->
+<script id="resource-config" type="text/plain">
+##! 闲鱼主页 @🛒
+前往我的闲鱼主页 | 进入主页 | https://m.tb.cn/h.j0x82jk?tk=G3VcTsu96S3
+
+## 联机 @🌐
+蓝盾 | 下载 | https://share.feijipan.com/s/MvaT0Op4
+樱花 | 下载 | https://share.feijipan.com/s/ZvaT0lAs
+
+## 我的世界 @🧟
+PCL启动器 | 下载 | https://share.feijipan.com/s/7BaTFdei
+整合包 | 访问 | https://bbsmc.net/
+MC百科 | 访问 | https://www.mcmod.cn/
+
+##* 实用工具 @🔧
+窗口置顶 | 下载 | https://share.feijipan.com/s/VzaTXVct
+图吧 | 下载 | https://share.feijipan.com/s/KY7ASTh4
+弹窗定位（流氓软件清理） | 下载 | https://share.feijipan.com/s/KFaTXcsn
+电脑使用情况 | 下载 | https://share.feijipan.com/s/r5aTX6gQ
+文件搜索 | 下载 | https://share.feijipan.com/s/PBaTXxQa
+Win11 轻松设置 | 下载 | https://share.feijipan.com/s/gqaTXgcW
+局域网文件传 | 下载 | https://share.feijipan.com/s/WmaTXRXe
+局域网文件共享 | 下载 | https://share.feijipan.com/s/jSaTYDuQ
+卸载软件 | 下载 | https://share.feijipan.com/s/SdaT2b90
+垃圾清理 | 下载 | https://share.feijipan.com/s/cAaT2nOI
+WizTree | 下载 | https://share.feijipan.com/s/mydMXDMN
+系统美化 | 下载 | https://share.feijipan.com/s/TK8UlGSA
+Adobe 全家桶 | 访问 | https://www.yeah6.com/
+Office 下载激活 | 访问 | https://www.officetool.plus/zh-cn/
+
+## 娱乐 @😍
+音乐 | 下载 | https://share.feijipan.com/s/6EaTNCWm
+
+## 游戏资源库 @🤖
+Koyso | 访问 | https://koyso.to/
+N网（游戏 MOD 网站） | 访问 | https://www.nexusmods.com/
+</script>
+<!-- ═══════ 资源链接配置区【结束】═══════ -->
+
+<!-- Topbar -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="./" class="logo">
+      <span class="logo-tile" aria-hidden="true">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </span>
+      <span>资源库<span class="logo-sub">MY RESOURCE HUB</span></span>
+    </a>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>◆ 欢迎光临个人资源库&nbsp;&nbsp;◆ 资源持续更新中&nbsp;&nbsp;◆ 记得收藏本页&nbsp;&nbsp;◆ 祝使用愉快&nbsp;&nbsp;</span>
+      <span>◆ 欢迎光临个人资源库&nbsp;&nbsp;◆ 资源持续更新中&nbsp;&nbsp;◆ 记得收藏本页&nbsp;&nbsp;◆ 祝使用愉快&nbsp;&nbsp;</span>
+      <span>◆ 欢迎光临个人资源库&nbsp;&nbsp;◆ 资源持续更新中&nbsp;&nbsp;◆ 记得收藏本页&nbsp;&nbsp;◆ 祝使用愉快&nbsp;&nbsp;</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>个人<em>资源库</em></h1>
+    <p>下载链接与实用工具收藏，用下面的搜索可以快速找到想要的资源。</p>
+    <div class="hero-row">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索资源名称…" aria-label="搜索资源">
+        <kbd>/</kbd>
+      </label>
+      <div class="chips">
+        <span class="chip">📦 <b id="statRes">0</b> 个资源</span>
+        <span class="chip">🗂 <b id="statCard">0</b> 个分类</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured cards -->
+  <section id="featuredGrid" class="featured-grid" aria-label="推荐"></section>
+
+  <!-- Normal cards -->
+  <section id="cardsGrid" class="cards-grid" aria-label="资源分类"></section>
+
+  <!-- No result tip -->
+  <div id="noResult" class="empty" hidden>🔍 没有找到匹配的资源，换个关键词试试？</div>
+
+  <!-- Empty config tip -->
+  <div id="emptyTip" class="empty" hidden>
+    <span class="big">📦</span>
+    <b>内容整理中</b><br>资源正在上新，敬请期待～
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  资源库 · 个人收藏整理
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
