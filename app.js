@@ -1,7 +1,99 @@
-/* ══════════════════════════════════════════════════════
-   资源库页面逻辑：解析配置区 → 渲染卡片 → 搜索
-   资源链接请在 index.html 顶部的「资源链接配置区」里填写
-══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════
+   资源库页面：上方配置区填资源 → 下方代码负责渲染和搜索
+══════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════
+   💡 资源链接配置区【开始】 —— 只改这一块，改完保存、刷新网页生效
+   ══════════════════════════════════════════════════════════════
+
+   【怎么改】
+   · 一个大括号块 { ... } = 一个分类（一张卡片）
+   · 改链接：直接替换 url: '...' 引号里的网址
+   · 加资源：在 items: [ ... ] 里照抄一行，改名称和网址即可
+       { name: '资源名称', btn: '下载', url: 'https://...' },
+   · 加分类：复制一整个 { ... } 块，改 title / emoji / items
+   · btn 可省略（默认「打开」）；按钮文字含「下载/安装」会变成实心彩按钮
+   · url 留空 '' 或省略 → 按钮显示灰色「待填写」
+   · style 可选：'推荐' = 顶部大号推荐卡 ｜ '宽卡' = 占满一整行（资源多时用）
+   · emoji 可省略，会自动配一个图标
+   · 注意：行尾逗号不要丢，引号、冒号都用英文符号
+
+   ══════════════════════════════════════════════════════════════ */
+
+const RESOURCES = [
+
+  {
+    title: '闲鱼主页',
+    emoji: '🛒',
+    style: '推荐',                       // 顶部大号推荐卡片
+    items: [
+      { name: '前往我的闲鱼主页', btn: '进入主页', url: 'https://m.tb.cn/h.j0x82jk?tk=G3VcTsu96S3' },
+    ],
+  },
+
+  {
+    title: '联机',
+    emoji: '🌐',
+    items: [
+      { name: '蓝盾', btn: '下载', url: 'https://share.feijipan.com/s/MvaT0Op4' },
+      { name: '樱花', btn: '下载', url: 'https://share.feijipan.com/s/ZvaT0lAs' },
+    ],
+  },
+
+  {
+    title: '我的世界',
+    emoji: '🧟',
+    items: [
+      { name: 'PCL启动器', btn: '下载', url: 'https://share.feijipan.com/s/7BaTFdei' },
+      { name: '整合包', btn: '访问', url: 'https://bbsmc.net/' },
+      { name: 'MC百科', btn: '访问', url: 'https://www.mcmod.cn/' },
+    ],
+  },
+
+  {
+    title: '实用工具',
+    emoji: '🔧',
+    style: '宽卡',                       // 占满一整行，资源多时用
+    items: [
+      { name: '窗口置顶', btn: '下载', url: 'https://share.feijipan.com/s/VzaTXVct' },
+      { name: '图吧', btn: '下载', url: 'https://share.feijipan.com/s/KY7ASTh4' },
+      { name: '弹窗定位（流氓软件清理）', btn: '下载', url: 'https://share.feijipan.com/s/KFaTXcsn' },
+      { name: '电脑使用情况', btn: '下载', url: 'https://share.feijipan.com/s/r5aTX6gQ' },
+      { name: '文件搜索', btn: '下载', url: 'https://share.feijipan.com/s/PBaTXxQa' },
+      { name: 'Win11 轻松设置', btn: '下载', url: 'https://share.feijipan.com/s/gqaTXgcW' },
+      { name: '局域网文件传', btn: '下载', url: 'https://share.feijipan.com/s/WmaTXRXe' },
+      { name: '局域网文件共享', btn: '下载', url: 'https://share.feijipan.com/s/jSaTYDuQ' },
+      { name: '卸载软件', btn: '下载', url: 'https://share.feijipan.com/s/SdaT2b90' },
+      { name: '垃圾清理', btn: '下载', url: 'https://share.feijipan.com/s/cAaT2nOI' },
+      { name: 'WizTree', btn: '下载', url: 'https://share.feijipan.com/s/mydMXDMN' },
+      { name: '系统美化', btn: '下载', url: 'https://share.feijipan.com/s/TK8UlGSA' },
+      { name: 'Adobe 全家桶', btn: '访问', url: 'https://www.yeah6.com/' },
+      { name: 'Office 下载激活', btn: '访问', url: 'https://www.officetool.plus/zh-cn/' },
+    ],
+  },
+
+  {
+    title: '娱乐',
+    emoji: '😍',
+    items: [
+      { name: '音乐', btn: '下载', url: 'https://share.feijipan.com/s/6EaTNCWm' },
+    ],
+  },
+
+  {
+    title: '游戏资源库',
+    emoji: '🤖',
+    items: [
+      { name: 'Koyso', btn: '访问', url: 'https://koyso.to/' },
+      { name: 'N网（游戏 MOD 网站）', btn: '访问', url: 'https://www.nexusmods.com/' },
+    ],
+  },
+
+];
+
+/* ═════════════════════ 资源链接配置区【结束】════════════════════ */
+
+/* ═══════════════ 以下是页面渲染和搜索逻辑，平时不用动 ═══════════════ */
 (function () {
   'use strict';
 
@@ -22,34 +114,24 @@
     });
   }
 
-  /* ---- Parse the config block ---- */
-  function parse(txt) {
-    var cards = [], cur = null;
-    txt.split(/\r?\n/).forEach(function (raw) {
-      var line = raw.trim();
-      if (!line) return;
-      if (/^##(!|\*)?/.test(line)) {
-        var m = line.match(/^##([!*]?)\s*(.+)$/);
-        if (m) {
-          var title = m[2], emoji = null;
-          var am = title.match(/\s@(\S+)\s*$/);
-          if (am) { emoji = am[1]; title = title.slice(0, am.index).trim(); }
-          cur = { variant: m[1], title: title, emoji: emoji, items: [] };
-          cards.push(cur);
-          return;
-        }
-      }
-      if (line.charAt(0) === '#') return; // comment
-      if (!cur) { cur = { variant: '', title: '其他', emoji: null, items: [] }; cards.push(cur); }
-      var parts = line.split('|').map(function (s) { return s.trim(); });
-      var it;
-      if (parts.length === 1) it = { name: parts[0], btn: '待填写', url: '' };
-      else if (parts.length === 2) it = { name: parts[0], btn: '打开', url: parts[1] };
-      else it = { name: parts[0], btn: parts[1] || '打开', url: parts.slice(2).join('|') };
-      it.empty = !it.url || it.url === '-';
-      cur.items.push(it);
-    });
-    return cards.filter(function (c) { return c.items.length > 0; });
+  /* ---- 整理配置数据 ---- */
+  function normalizeCards() {
+    return RESOURCES.map(function (c) {
+      return {
+        variant: c.style === '推荐' ? '!' : c.style === '宽卡' ? '*' : '',
+        title: c.title || '未命名分类',
+        emoji: c.emoji || null,
+        items: (c.items || []).map(function (it) {
+          var url = it.url || '';
+          return {
+            name: it.name || '未命名资源',
+            btn: it.btn || (url ? '打开' : '待填写'),
+            url: url,
+            empty: !url
+          };
+        })
+      };
+    }).filter(function (c) { return c.items.length > 0; });
   }
 
   /* ---- Build DOM ---- */
@@ -106,11 +188,8 @@
     return el;
   }
 
-  /* ---- Render（数据来自 index.html 顶部的「资源链接配置区」） ---- */
-  var cfgEl = document.getElementById('resource-config');
-  var cfgText = cfgEl ? cfgEl.textContent : '';
-  var hasData = cfgText.trim().length > 0;
-  var cards = hasData ? parse(cfgText) : [];
+  /* ---- Render（数据来自上方「资源链接配置区」） ---- */
+  var cards = normalizeCards();
   var featured = [], normal = [];
   cards.forEach(function (c) { (c.variant === '!' ? featured : normal).push(c); });
 
