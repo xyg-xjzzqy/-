@@ -67,6 +67,8 @@ const RESOURCES = [
       { name: '垃圾清理', btn: '下载', url: 'https://share.feijipan.com/s/cAaT2nOI' },
       { name: 'WizTree', btn: '下载', url: 'https://share.feijipan.com/s/mydMXDMN' },
       { name: '系统美化', btn: '下载', url: 'https://share.feijipan.com/s/TK8UlGSA' },
+      { name: '手机音频转电脑', btn: '下载', url: 'https://share.feijipan.com/s/luwSiGi2' }
+      { name: '校园网自动认证', btn: '下载', url: 'https://share.feijipan.com/s/pNxTt9SE' }
       { name: 'Adobe 全家桶', btn: '访问', url: 'https://www.yeah6.com/' },
       { name: 'Office 下载激活', btn: '访问', url: 'https://www.officetool.plus/zh-cn/' },
     ],
