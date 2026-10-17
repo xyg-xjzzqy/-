@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资源库 · 管理后台</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #F4F0E6;
+    --ink: #141414;
+    --card: #FFFDF6;
+    --muted: #6B675C;
+    --line: #E3DDCB;
+    --accent: #3D6BFF;
+    --accent-tint: #E8EEFF;
+    --ok: #1FA55A;
+    --err: #E23B3B;
+    --font-display: 'ZCOOL QingKe HuangYou', 'Noto Sans SC', sans-serif;
+    --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --shadow: 6px 6px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-body); background: var(--paper); color: var(--ink); line-height: 1.6;
+    background-image: radial-gradient(rgba(20,20,20,.09) 1.2px, transparent 1.2px);
+    background-size: 24px 24px; min-height: 100vh;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  input, select { font-family: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--card); border-bottom: 2px solid var(--ink); }
+  .topbar-inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 22px; height: 64px;
+    display: flex; align-items: center; gap: 14px; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: 22px; }
+  .brand-tile {
+    width: 38px; height: 38px; flex: none; background: var(--accent); border: 2px solid var(--ink);
+    border-radius: 11px; display: grid; place-items: center; color: #fff; box-shadow: var(--shadow-sm); font-size: 19px;
+  }
+  .token-wrap { display: flex; align-items: center; gap: 8px; }
+  .token-wrap input {
+    border: 2px solid var(--ink); border-radius: 10px; padding: 7px 11px; font-size: 13px; width: 200px;
+    background: #fff; box-shadow: var(--shadow-sm);
+  }
+  .hint { font-size: 11.5px; color: var(--muted); }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 26px 22px 80px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; align-items: center; }
+  .toolbar .grow { flex: 1; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--ink); border-radius: 10px;
+    padding: 7px 15px; font-size: 13px; font-weight: 700; background: #fff; color: var(--ink); box-shadow: var(--shadow-sm);
+    transition: transform .13s ease, box-shadow .13s ease, background .13s ease;
+  }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+  .btn--solid { background: var(--accent); color: #fff; }
+  .btn--ghost { background: var(--card); }
+
+  .layout { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+  .panel { background: var(--card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: var(--shadow); }
+  .panel-head {
+    padding: 14px 18px; border-bottom: 2px dashed rgba(20,20,20,.18);
+    font-family: var(--font-display); font-size: 19px; letter-spacing: .03em;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-body { padding: 14px; }
+
+  .cat-list { display: flex; flex-direction: column; gap: 10px; }
+  .cat-item { display: flex; gap: 8px; align-items: stretch; }
+  .cat-pick {
+    flex: 1; display: flex; align-items: center; gap: 10px; text-align: left;
+    border: 2px solid var(--ink); border-radius: 10px; padding: 9px 12px; background: #fff; color: var(--ink);
+    font-size: 14px; font-weight: 500; box-shadow: var(--shadow-sm);
+  }
+  .cat-item.active .cat-pick { background: var(--accent-tint); box-shadow: 4px 4px 0 var(--ink); transform: translate(-1px,-1px); }
+  .cat-emoji { font-size: 18px; }
+  .cat-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cat-n { font-size: 11.5px; color: var(--muted); background: #fff; border: 1.5px solid var(--ink); border-radius: 999px; padding: 0 8px; }
+  .cat-del {
+    border: 2px solid var(--ink); border-radius: 10px; width: 38px; background: #fff; color: var(--ink);
+    font-size: 15px; box-shadow: var(--shadow-sm);
+  }
+  .cat-del:hover { background: #FFE3EC; }
+
+  .field { display: block; margin-bottom: 14px; }
+  .field-label { display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+  .field input, .field select {
+    width: 100%; border: 2px solid var(--ink); border-radius: 10px; padding: 9px 12px;
+    font-size: 14px; background: #fff; color: var(--ink);
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .items-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 10px; }
+  .items-head b { font-family: var(--font-display); font-size: 17px; letter-spacing: .03em; }
+  .item-row {
+    display: grid; grid-template-columns: 1.1fr .8fr 1.6fr 40px; gap: 8px; align-items: center; margin-bottom: 8px;
+  }
+  .item-row input {
+    border: 2px solid var(--ink); border-radius: 9px; padding: 8px 10px; font-size: 13px; background: #fff; min-width: 0;
+  }
+  .icon-btn { border: 2px solid var(--ink); border-radius: 9px; height: 38px; background: #fff; color: var(--ink); font-size: 15px; box-shadow: var(--shadow-sm); }
+  .icon-btn:hover { background: #FFE3EC; }
+  .empty-editor { text-align: center; color: var(--muted); padding: 44px 16px; font-size: 14px; }
+  .empty-editor .big { font-size: 40px; display: block; margin-bottom: 10px; }
+
+  .status {
+    margin-top: 18px; border: 2px solid var(--ink); border-radius: 12px; padding: 11px 15px;
+    background: #fff; font-size: 13.5px; display: none;
+  }
+  .status.show { display: block; }
+  .status.ok { background: #E1F5E8; }
+  .status.err { background: #FFE3EC; }
+  .status.info { background: var(--accent-tint); }
+
+  .foot-note { margin-top: 16px; color: var(--muted); font-size: 12.5px; }
+
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    .topbar-inner { height: auto; padding: 12px 16px; flex-direction: column; align-items: stretch; }
+    .token-wrap input { flex: 1; width: auto; }
+    .field-row { grid-template-columns: 1fr; }
+    .item-row { grid-template-columns: 1fr 1fr; }
+    .item-row .item-url { grid-column: 1 / -1; }
+    .item-row .icon-btn { grid-column: 1 / -1; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-tile">⚙️</span>
+      <span>资源库 · 管理后台</span>
+    </div>
+    <label class="token-wrap">
+      <span class="hint">管理令牌</span>
+      <input id="token" type="password" placeholder="ADMIN_TOKEN，留空则无需验证" autocomplete="off">
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar">
+    <button class="btn btn--ghost" data-action="reload">↻ 重新读取</button>
+    <button class="btn btn--ghost" data-action="import-file">⇩ 导入 data.json</button>
+    <button class="btn btn--ghost" data-action="download">⭳ 下载 JSON</button>
+    <span class="grow"></span>
+    <button class="btn btn--solid" data-action="publish">发布到网站</button>
+  </div>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <span>分类</span>
+        <button class="btn" data-action="add-cat" style="padding:5px 12px;">＋ 新增</button>
+      </div>
+      <div class="panel-body">
+        <div id="catList" class="cat-list"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span id="editorTitle">编辑</span></div>
+      <div class="panel-body" id="editor"></div>
+    </section>
+  </div>
+
+  <div id="status" class="status" role="status"></div>
+  <p class="foot-note">
+    说明：发布按钮会把整份目录保存到后台 KV（首次自动用 data.json 初始化）。若未配置后台，也可以直接下载 JSON 后提交到仓库里的 data.json。
+  </p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var state = { catalog: [], selected: -1, mode: 'static' };
+
+  function $(s) { return document.querySelector(s); }
+  function setStatus(msg, kind) {
+    var el = $('#status');
+    el.textContent = msg;
+    el.className = 'status show ' + (kind || '');
+  }
+
+  /* ---- 数据读取 ---- */
+  async function loadRemote() {
+    setStatus('正在读取线上数据…', 'info');
+    try {
+      var res = await fetch('/api/tools', { cache: 'no-store' });
+      if (res.ok) {
+        var data = await res.json();
+        if (Array.isArray(data)) {
+          state.catalog = data;
+          state.mode = 'api';
+          setStatus('已连接后台（线上数据）。改动后点「发布到网站」即可生效。', 'ok');
+          render();
+          return;
+        }
+      }
+    } catch (err) { /* 无后台则走静态模式 */ }
+    await loadFile();
+  }
+
+  async function loadFile() {
+    try {
+      var res = await fetch('./data.json', { cache: 'no-store' });
+      if (res.ok) {
+        state.catalog = await res.json();
+        state.mode = 'static';
+        state.selected = -1;
+        setStatus('后台未连接，已读取 data.json（静态模式）。改动后请下载 JSON 提交到仓库。', 'info');
+        render();
+        return;
+      }
+    } catch (err) { /* ignore */ }
+    state.catalog = [];
+    state.mode = 'static';
+    state.selected = -1;
+    setStatus('未找到数据，请「新增」分类开始，或点「导入 data.json」。', 'err');
+    render();
+  }
+
+  /* ---- 渲染 ---- */
+  function render() {
+    renderSidebar();
+    renderEditor();
+  }
+
+  function renderSidebar() {
+    var list = $('#catList');
+    list.innerHTML = state.catalog.map(function (c, i) {
+      var active = i === state.selected ? ' active' : '';
+      return '<div class="cat-item' + active + '">' +
+        '<button class="cat-pick" data-action="pick" data-idx="' + i + '">' +
+          '<span class="cat-emoji">' + (c.emoji || '📦') + '</span>' +
+          '<span class="cat-name">' + (c.title || '未命名分类') + '</span>' +
+          '<span class="cat-n">' + (c.items ? c.items.length : 0) + '</span>' +
+        '</button>' +
+        '<button class="cat-del" data-action="del-cat" data-idx="' + i + '" title="删除分类">✕</button>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderEditor() {
+    var editor = $('#editor');
+    var card = state.catalog[state.selected];
+    if (!card) {
+      editor.innerHTML = '<div class="empty-editor"><span class="big">🖊️</span>从左侧选择一个分类开始编辑</div>';
+      $('#editorTitle').textContent = '编辑';
+      return;
+    }
+    $('#editorTitle').textContent = '编辑 · ' + card.title;
+    var style = card.style || '';
+    var items = (card.items || []).map(function (it, j) {
+      return '<div class="item-row">' +
+        '<input data-key="name" data-item="' + j + '" value="' + escAttr(it.name) + '" placeholder="名称">' +
+        '<input data-key="btn" data-item="' + j + '" value="' + escAttr(it.btn) + '" placeholder="按钮文字">' +
+        '<input class="item-url" data-key="url" data-item="' + j + '" value="' + escAttr(it.url) + '" placeholder="https://...">' +
+        '<button class="icon-btn" data-action="del-item" data-item="' + j + '" title="删除">✕</button>' +
+      '</div>';
+    }).join('');
+
+    editor.innerHTML =
+      '<div class="field-row">' +
+        '<label class="field"><span class="field-label">分类标题</span>' +
+          '<input data-field="title" value="' + escAttr(card.title) + '"></label>' +
+        '<label class="field"><span class="field-label">图标 Emoji</span>' +
+          '<input data-field="emoji" value="' + escAttr(card.emoji) + '"></label>' +
+      '</div>' +
+      '<label class="field"><span class="field-label">卡片样式</span>' +
+        '<select data-field="style">' +
+          '<option value=""' + (style === '' ? ' selected' : '') + '>普通</option>' +
+          '<option value="推荐"' + (style === '推荐' ? ' selected' : '') + '>推荐（顶部大卡）</option>' +
+          '<option value="宽卡"' + (style === '宽卡' ? ' selected' : '') + '>宽卡（整行，适合资源多）</option>' +
+        '</select></label>' +
+      '<div class="items-head"><b>资源列表</b>' +
+        '<button class="btn" data-action="add-item" style="padding:5px 12px;">＋ 添加资源</button></div>' +
+      '<div>' + (items || '') + '</div>';
+  }
+
+  function escAttr(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  /* ---- 编辑事件：输入直接写回 state，不重绘避免失焦 ---- */
+  $('#editor').addEventListener('input', function (e) {
+    var card = state.catalog[state.selected];
+    if (!card) return;
+    var t = e.target;
+    if (t.dataset.field) {
+      card[t.dataset.field] = t.value;
+      if (t.dataset.field === 'title') $('#editorTitle').textContent = '编辑 · ' + t.value;
+      return;
+    }
+    var key = t.dataset.key, idx = Number(t.dataset.item);
+    if (key && Number.isInteger(idx) && card.items && card.items[idx]) {
+      card.items[idx][key] = t.value;
+    }
+  });
+
+  /* ---- 按钮事件 ---- */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    var action = btn.dataset.action;
+    var idx = Number(btn.dataset.idx);
+    var card = state.catalog[state.selected];
+
+    if (action === 'pick') {
+      state.selected = idx;
+      render();
+    } else if (action === 'del-cat') {
+      if (!confirm('确定删除这个分类吗？')) return;
+      state.catalog.splice(idx, 1);
+      state.selected = -1;
+      render();
+    } else if (action === 'add-cat') {
+      state.catalog.push({ title: '新分类', emoji: '📦', style: '', items: [] });
+      state.selected = state.catalog.length - 1;
+      render();
+    } else if (action === 'add-item') {
+      if (!card) return;
+      card.items = card.items || [];
+      card.items.push({ name: '新资源', btn: '下载', url: '' });
+      renderEditor();
+    } else if (action === 'del-item') {
+      if (!card || !confirm('确定删除这个资源吗？')) return;
+      card.items.splice(Number(btn.dataset.item), 1);
+      renderEditor();
+    } else if (action === 'reload') {
+      loadRemote();
+    } else if (action === 'import-file') {
+      loadFile();
+    } else if (action === 'download') {
+      downloadCatalog();
+    } else if (action === 'publish') {
+      publish();
+    }
+  });
+
+  /* ---- 令牌本地保存 ---- */
+  var tokenEl = $('#token');
+  tokenEl.value = localStorage.getItem('adminToken') || '';
+  tokenEl.addEventListener('input', function () {
+    localStorage.setItem('adminToken', tokenEl.value);
+  });
+
+  function downloadCatalog() {
+    var blob = new Blob([JSON.stringify(state.catalog, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'data.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+    setStatus('已生成 data.json 文件，把它替换仓库里的 data.json 并推送即可。', 'ok');
+  }
+
+  async function publish() {
+    setStatus('正在发布…', 'info');
+    var headers = { 'content-type': 'application/json' };
+    if (tokenEl.value) headers['Authorization'] = 'Bearer ' + tokenEl.value;
+    try {
+      var res = await fetch('/api/tools', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(state.catalog)
+      });
+      var body = null;
+      try { body = await res.json(); } catch (err) { /* ignore */ }
+      if (res.ok) {
+        state.mode = 'api';
+        setStatus('发布成功！前台已更新（KV 几秒内生效）。', 'ok');
+      } else if (res.status === 401) {
+        setStatus('发布失败：令牌不正确，请在右上角填写 ADMIN_TOKEN。', 'err');
+      } else {
+        setStatus('发布失败：' + ((body && body.error) || res.status), 'err');
+      }
+    } catch (err) {
+      state.mode = 'static';
+      setStatus('未连接后台，已自动生成 JSON 文件，请把下载的 data.json 提交到仓库。', 'err');
+      downloadCatalog();
+    }
+  }
+
+  loadRemote();
+})();
+</script>
+</body>
+</html>

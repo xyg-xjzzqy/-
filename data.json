@@ -1,0 +1,65 @@
+[
+  {
+    "title": "闲鱼主页",
+    "emoji": "🛒",
+    "style": "推荐",
+    "items": [
+      { "name": "前往我的闲鱼主页", "btn": "进入主页", "url": "https://m.tb.cn/h.j0x82jk?tk=G3VcTsu96S3" }
+    ]
+  },
+  {
+    "title": "联机",
+    "emoji": "🌐",
+    "items": [
+      { "name": "蓝盾", "btn": "下载", "url": "https://share.feijipan.com/s/MvaT0Op4" },
+      { "name": "樱花", "btn": "下载", "url": "https://share.feijipan.com/s/ZvaT0lAs" }
+    ]
+  },
+  {
+    "title": "我的世界",
+    "emoji": "🧟",
+    "items": [
+      { "name": "PCL启动器", "btn": "下载", "url": "https://share.feijipan.com/s/7BaTFdei" },
+      { "name": "整合包", "btn": "访问", "url": "https://bbsmc.net/" },
+      { "name": "MC百科", "btn": "访问", "url": "https://www.mcmod.cn/" }
+    ]
+  },
+  {
+    "title": "实用工具",
+    "emoji": "🔧",
+    "style": "宽卡",
+    "items": [
+      { "name": "窗口置顶", "btn": "下载", "url": "https://share.feijipan.com/s/VzaTXVct" },
+      { "name": "图吧", "btn": "下载", "url": "https://share.feijipan.com/s/KY7ASTh4" },
+      { "name": "弹窗定位（流氓软件清理）", "btn": "下载", "url": "https://share.feijipan.com/s/KFaTXcsn" },
+      { "name": "电脑使用情况", "btn": "下载", "url": "https://share.feijipan.com/s/r5aTX6gQ" },
+      { "name": "文件搜索", "btn": "下载", "url": "https://share.feijipan.com/s/PBaTXxQa" },
+      { "name": "Win11 轻松设置", "btn": "下载", "url": "https://share.feijipan.com/s/gqaTXgcW" },
+      { "name": "局域网文件传", "btn": "下载", "url": "https://share.feijipan.com/s/WmaTXRXe" },
+      { "name": "局域网文件共享", "btn": "下载", "url": "https://share.feijipan.com/s/jSaTYDuQ" },
+      { "name": "卸载软件", "btn": "下载", "url": "https://share.feijipan.com/s/SdaT2b90" },
+      { "name": "垃圾清理", "btn": "下载", "url": "https://share.feijipan.com/s/cAaT2nOI" },
+      { "name": "WizTree", "btn": "下载", "url": "https://share.feijipan.com/s/mydMXDMN" },
+      { "name": "系统美化", "btn": "下载", "url": "https://share.feijipan.com/s/TK8UlGSA" },
+      { "name": "手机音频转电脑", "btn": "下载", "url": "https://share.feijipan.com/s/luwSiGi2" },
+      { "name": "校园网自动认证", "btn": "下载", "url": "https://share.feijipan.com/s/pNxTt9SE" },
+      { "name": "Adobe 全家桶", "btn": "访问", "url": "https://www.yeah6.com/" },
+      { "name": "Office 下载激活", "btn": "访问", "url": "https://www.officetool.plus/zh-cn/" }
+    ]
+  },
+  {
+    "title": "娱乐",
+    "emoji": "😍",
+    "items": [
+      { "name": "音乐", "btn": "下载", "url": "https://share.feijipan.com/s/6EaTNCWm" }
+    ]
+  },
+  {
+    "title": "游戏资源库",
+    "emoji": "🤖",
+    "items": [
+      { "name": "Koyso", "btn": "访问", "url": "https://koyso.to/" },
+      { "name": "N网（游戏 MOD 网站）", "btn": "访问", "url": "https://www.nexusmods.com/" }
+    ]
+  }
+]
