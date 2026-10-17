@@ -1,13 +1,13 @@
 /* Cloudflare Pages Functions · /api/tools
    需要绑定一个 KV 命名空间，名字为 TOOLS
    GET  /api/tools   返回当前资源目录（首次自动用 data.json 初始化）
-   POST /api/tools   保存整份资源目录（需要 ADMIN_TOKEN，见 README）
+   POST /api/tools   保存整份资源目录（需要 XYG_TOKEN，见 README）
 */
 
 var JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8' };
 
 function isAuthorized(request, env) {
-  var token = env.ADMIN_TOKEN;
+  var token = env.XYG_TOKEN;
   if (!token) return true; // 未配置令牌时放行，线上请务必配置
   var auth = request.headers.get('Authorization') || '';
   return auth === 'Bearer ' + token;
