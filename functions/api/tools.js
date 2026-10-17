@@ -8,7 +8,7 @@ var JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8' };
 
 function isAuthorized(request, env) {
   var token = env.XYG_TOKEN;
-  if (!token) return true; // 未配置令牌时放行，线上请务必配置
+  if (!token) return false; // 未配置令牌时禁止写入
   var auth = request.headers.get('Authorization') || '';
   return auth === 'Bearer ' + token;
 }
@@ -55,6 +55,13 @@ export async function onRequestPost(context) {
   if (!env.TOOLS) {
     return Response.json(
       { ok: false, error: '后台未配置 KV 绑定（TOOLS），请参考 README 配置' },
+      { status: 503, headers: JSON_HEADERS }
+    );
+  }
+
+  if (!env.XYG_TOKEN) {
+    return Response.json(
+      { ok: false, error: '后台未配置 XYG_TOKEN 环境变量，发布功能已禁用' },
       { status: 503, headers: JSON_HEADERS }
     );
   }
