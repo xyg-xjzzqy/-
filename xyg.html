@@ -144,8 +144,8 @@
       <span>资源库 · 管理后台</span>
     </div>
     <label class="token-wrap">
-      <span class="hint">管理令牌</span>
-      <input id="token" type="password" placeholder="请输入没密码" autocomplete="off">
+      <span class="hint">发布密码</span>
+      <input id="token" type="password" placeholder="输入 XYG_TOKEN 的值" autocomplete="off">
     </label>
   </div>
 </header>
@@ -386,7 +386,7 @@
         state.mode = 'api';
         setStatus('发布成功！前台已更新（KV 几秒内生效）。', 'ok');
       } else if (res.status === 401) {
-        setStatus('发布失败：令牌不正确，请在右上角填写 XYG_TOKEN。', 'err');
+        setStatus('发布失败：密码不正确。', 'err');
       } else {
         setStatus('发布失败：' + ((body && body.error) || res.status), 'err');
       }
