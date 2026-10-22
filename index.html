@@ -104,8 +104,8 @@
   .chip b { font-family: var(--font-display); font-weight: 400; font-size: 16px; color: var(--accent); line-height: 1; }
 
   /* ===== Grids ===== */
-  .featured-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(290px, 420px)); justify-content: center; margin-bottom: 26px; }
-  .cards-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); align-items: start; }
+  .featured-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin-bottom: 26px; }
+  .cards-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
   .featured-grid:empty, .cards-grid:empty { display: none; }
   .card--wide { grid-column: 1 / -1; }
   .card.is-hide { display: none; }
@@ -150,9 +150,11 @@
   }
   .res-star:hover { color: var(--ink); transform: scale(1.18); }
   .res-star.is-on { color: #F7B32B; }
+  .feat-actions { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; }
+  .feat-actions .feat-btn { margin-top: 0; }
   .feat-star {
-    position: absolute; top: 12px; left: 14px; width: 32px; height: 32px; color: #9C957F;
-    background: #fff; border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+    width: 36px; height: 36px; color: var(--muted); border-radius: 10px;
+    background: #fff; border: 2px solid var(--ink); box-shadow: var(--shadow-sm);
   }
 
   /* ===== 我的常用（收藏 + 最近打开） ===== */
