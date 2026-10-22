@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>资源库 · 管理后台</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,11 +104,18 @@
   .items-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 10px; }
   .items-head b { font-family: var(--font-display); font-size: 17px; letter-spacing: .03em; }
   .item-row {
-    display: grid; grid-template-columns: 1.1fr .8fr 1.6fr 40px; gap: 8px; align-items: center; margin-bottom: 8px;
+    display: grid; grid-template-columns: 1.1fr .8fr 1.6fr 40px; gap: 8px; align-items: center;
+    margin-bottom: 8px; padding: 8px; border: 1.5px dashed var(--line); border-radius: 12px;
   }
   .item-row input {
     border: 2px solid var(--ink); border-radius: 9px; padding: 8px 10px; font-size: 13px; background: #fff; min-width: 0;
   }
+  .item-row input[data-key="name"] { grid-column: 1; grid-row: 1; }
+  .item-row input[data-key="btn"]  { grid-column: 2; grid-row: 1; }
+  .item-row input[data-key="url"]  { grid-column: 3; grid-row: 1; }
+  .item-row input[data-key="desc"] { grid-column: 1 / span 2; grid-row: 2; }
+  .item-row input[data-key="tags"] { grid-column: 3; grid-row: 2; }
+  .item-row .icon-btn { grid-column: 4; grid-row: 1 / span 2; height: 100%; }
   .icon-btn { border: 2px solid var(--ink); border-radius: 9px; height: 38px; background: #fff; color: var(--ink); font-size: 15px; box-shadow: var(--shadow-sm); }
   .icon-btn:hover { background: #FFE3EC; }
   .empty-editor { text-align: center; color: var(--muted); padding: 44px 16px; font-size: 14px; }
@@ -130,8 +138,9 @@
     .token-wrap input { flex: 1; width: auto; }
     .field-row { grid-template-columns: 1fr; }
     .item-row { grid-template-columns: 1fr 1fr; }
-    .item-row .item-url { grid-column: 1 / -1; }
-    .item-row .icon-btn { grid-column: 1 / -1; width: 100%; }
+    .item-row input[data-key] { grid-column: auto; grid-row: auto; }
+    .item-row input[data-key="url"], .item-row input[data-key="desc"] { grid-column: 1 / -1; }
+    .item-row .icon-btn { grid-column: 1 / -1; grid-row: auto; height: 36px; }
   }
 </style>
 </head>
@@ -268,7 +277,9 @@
       return '<div class="item-row">' +
         '<input data-key="name" data-item="' + j + '" value="' + escAttr(it.name) + '" placeholder="名称">' +
         '<input data-key="btn" data-item="' + j + '" value="' + escAttr(it.btn) + '" placeholder="按钮文字">' +
-        '<input class="item-url" data-key="url" data-item="' + j + '" value="' + escAttr(it.url) + '" placeholder="https://...">' +
+        '<input data-key="url" data-item="' + j + '" value="' + escAttr(it.url) + '" placeholder="https://...">' +
+        '<input data-key="desc" data-item="' + j + '" value="' + escAttr(it.desc) + '" placeholder="描述（可选，显示在名称下方）">' +
+        '<input data-key="tags" data-item="' + j + '" value="' + escAttr(tagText(it.tags)) + '" placeholder="标签（可选，空格分隔，用于搜索）">' +
         '<button class="icon-btn" data-action="del-item" data-item="' + j + '" title="删除">✕</button>' +
       '</div>';
     }).join('');
@@ -292,7 +303,13 @@
   }
 
   function escAttr(s) {
-    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function tagText(t) {
+    return Array.isArray(t) ? t.join(' ') : (t || '');
   }
 
   /* ---- 编辑事件：输入直接写回 state，不重绘避免失焦 ---- */
@@ -334,7 +351,7 @@
     } else if (action === 'add-item') {
       if (!card) return;
       card.items = card.items || [];
-      card.items.push({ name: '新资源', btn: '下载', url: '' });
+      card.items.push({ name: '新资源', btn: '下载', url: '', desc: '', tags: '' });
       renderEditor();
     } else if (action === 'del-item') {
       if (!card || !confirm('确定删除这个资源吗？')) return;

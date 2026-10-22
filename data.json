@@ -4,24 +4,24 @@
     "emoji": "🛒",
     "style": "推荐",
     "items": [
-      { "name": "前往我的闲鱼主页", "btn": "进入主页", "url": "https://m.tb.cn/h.j0x82jk?tk=G3VcTsu96S3" }
+      { "name": "前往我的闲鱼主页", "btn": "进入主页", "url": "https://m.tb.cn/h.j0x82jk?tk=G3VcTsu96S3", "desc": "二手闲置与好物，有问题也可以在这里找我" }
     ]
   },
   {
     "title": "联机",
     "emoji": "🌐",
     "items": [
-      { "name": "蓝盾", "btn": "下载", "url": "https://share.feijipan.com/s/MvaT0Op4" },
-      { "name": "樱花", "btn": "下载", "url": "https://share.feijipan.com/s/ZvaT0lAs" }
+      { "name": "蓝盾", "btn": "下载", "url": "https://share.feijipan.com/s/MvaT0Op4", "tags": "我的世界 mc 联机" },
+      { "name": "樱花", "btn": "下载", "url": "https://share.feijipan.com/s/ZvaT0lAs", "tags": "我的世界 mc 联机 内网穿透 frp" }
     ]
   },
   {
     "title": "我的世界",
     "emoji": "🧟",
     "items": [
-      { "name": "PCL启动器", "btn": "下载", "url": "https://share.feijipan.com/s/7BaTFdei" },
-      { "name": "整合包", "btn": "访问", "url": "https://bbsmc.net/" },
-      { "name": "MC百科", "btn": "访问", "url": "https://www.mcmod.cn/" }
+      { "name": "PCL启动器", "btn": "下载", "url": "https://share.feijipan.com/s/7BaTFdei", "desc": "我的世界启动器，多版本一键切换", "tags": "我的世界 mc minecraft 启动器" },
+      { "name": "整合包", "btn": "访问", "url": "https://bbsmc.net/", "desc": "模组整合包下载与交流", "tags": "我的世界 mc mod 整合包" },
+      { "name": "MC百科", "btn": "访问", "url": "https://www.mcmod.cn/", "desc": "模组资料与整合包查询", "tags": "我的世界 mc mod 百科" }
     ]
   },
   {
@@ -29,37 +29,37 @@
     "emoji": "🔧",
     "style": "宽卡",
     "items": [
-      { "name": "窗口置顶", "btn": "下载", "url": "https://share.feijipan.com/s/VzaTXVct" },
+      { "name": "窗口置顶", "btn": "下载", "url": "https://share.feijipan.com/s/VzaTXVct", "desc": "让任意窗口保持最前面" },
       { "name": "图吧", "btn": "下载", "url": "https://share.feijipan.com/s/KY7ASTh4" },
-      { "name": "弹窗定位（流氓软件清理）", "btn": "下载", "url": "https://share.feijipan.com/s/KFaTXcsn" },
-      { "name": "电脑使用情况", "btn": "下载", "url": "https://share.feijipan.com/s/r5aTX6gQ" },
-      { "name": "文件搜索", "btn": "下载", "url": "https://share.feijipan.com/s/PBaTXxQa" },
-      { "name": "Win11 轻松设置", "btn": "下载", "url": "https://share.feijipan.com/s/gqaTXgcW" },
-      { "name": "局域网文件传", "btn": "下载", "url": "https://share.feijipan.com/s/WmaTXRXe" },
-      { "name": "局域网文件共享", "btn": "下载", "url": "https://share.feijipan.com/s/jSaTYDuQ" },
-      { "name": "卸载软件", "btn": "下载", "url": "https://share.feijipan.com/s/SdaT2b90" },
-      { "name": "垃圾清理", "btn": "下载", "url": "https://share.feijipan.com/s/cAaT2nOI" },
-      { "name": "WizTree", "btn": "下载", "url": "https://share.feijipan.com/s/mydMXDMN" },
-      { "name": "系统美化", "btn": "下载", "url": "https://share.feijipan.com/s/TK8UlGSA" },
-      { "name": "手机音频转电脑", "btn": "下载", "url": "https://share.feijipan.com/s/luwSiGi2" },
-      { "name": "校园网自动认证", "btn": "下载", "url": "https://share.feijipan.com/s/pNxTt9SE" },
-      { "name": "Adobe 全家桶", "btn": "访问", "url": "https://www.yeah6.com/" },
-      { "name": "Office 下载激活", "btn": "访问", "url": "https://www.officetool.plus/zh-cn/" }
+      { "name": "弹窗定位（流氓软件清理）", "btn": "下载", "url": "https://share.feijipan.com/s/KFaTXcsn", "desc": "查出弹窗是哪个进程弹的" },
+      { "name": "电脑使用情况", "btn": "下载", "url": "https://share.feijipan.com/s/r5aTX6gQ", "desc": "查看硬件配置与实时占用" },
+      { "name": "文件搜索", "btn": "下载", "url": "https://share.feijipan.com/s/PBaTXxQa", "desc": "按文件名秒搜本地文件" },
+      { "name": "Win11 轻松设置", "btn": "下载", "url": "https://share.feijipan.com/s/gqaTXgcW", "desc": "常用系统设置一键开关" },
+      { "name": "局域网文件传", "btn": "下载", "url": "https://share.feijipan.com/s/WmaTXRXe", "desc": "同一个 WiFi 下互传文件" },
+      { "name": "局域网文件共享", "btn": "下载", "url": "https://share.feijipan.com/s/jSaTYDuQ", "desc": "把文件夹共享给同网络设备" },
+      { "name": "卸载软件", "btn": "下载", "url": "https://share.feijipan.com/s/SdaT2b90", "desc": "卸载并清理注册表残留" },
+      { "name": "垃圾清理", "btn": "下载", "url": "https://share.feijipan.com/s/cAaT2nOI", "desc": "清理系统垃圾与更新残留" },
+      { "name": "WizTree", "btn": "下载", "url": "https://share.feijipan.com/s/mydMXDMN", "desc": "秒扫磁盘，找出最占空间的文件", "tags": "磁盘 空间 清理" },
+      { "name": "系统美化", "btn": "下载", "url": "https://share.feijipan.com/s/TK8UlGSA", "desc": "任务栏、字体、图标美化" },
+      { "name": "手机音频转电脑", "btn": "下载", "url": "https://share.feijipan.com/s/luwSiGi2", "desc": "把手机当电脑的麦克风或音箱" },
+      { "name": "校园网自动认证", "btn": "下载", "url": "https://share.feijipan.com/s/pNxTt9SE", "desc": "开机自动登录校园网" },
+      { "name": "Adobe 全家桶", "btn": "访问", "url": "https://www.yeah6.com/", "tags": "ps pr ae 设计" },
+      { "name": "Office 下载激活", "btn": "访问", "url": "https://www.officetool.plus/zh-cn/", "tags": "word excel ppt 办公" }
     ]
   },
   {
     "title": "娱乐",
     "emoji": "😍",
     "items": [
-      { "name": "音乐", "btn": "下载", "url": "https://share.feijipan.com/s/6EaTNCWm" }
+      { "name": "音乐", "btn": "下载", "url": "https://share.feijipan.com/s/6EaTNCWm", "tags": "听歌 音乐" }
     ]
   },
   {
     "title": "游戏资源库",
     "emoji": "🤖",
     "items": [
-      { "name": "Koyso", "btn": "访问", "url": "https://koyso.to/" },
-      { "name": "N网（游戏 MOD 网站）", "btn": "访问", "url": "https://www.nexusmods.com/" }
+      { "name": "Koyso", "btn": "访问", "url": "https://koyso.to/", "tags": "游戏 下载" },
+      { "name": "N网（游戏 MOD 网站）", "btn": "访问", "url": "https://www.nexusmods.com/", "desc": "全球最大的游戏 MOD 站", "tags": "游戏 mod nexus" }
     ]
   }
 ]
